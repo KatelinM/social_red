@@ -1,0 +1,20 @@
+let state = {
+    profilePage: {
+        posts: [
+            {id: 1, message: "Hi, how are you", likesCount: "0"},
+            {id: 2, message: "Hi, how are you", likesCount: "6"},
+            {id: 3, message: "Hi, how are you", likesCount: "2"},
+            {id: 4, message: "Hi, how are you", likesCount: "5"},
+        ],
+    },
+    dialogsPage: {
+        dialogs: [
+            {id: 1, name: "Anna"},
+            {id: 2, name: "Alex"},
+            {id: 3, name: "Taylor"},
+            {id: 4, name: "Swift"},
+        ],
+    }
+};
+
+export default state
