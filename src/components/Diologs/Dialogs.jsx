@@ -18,15 +18,23 @@ const Message = (props) => {
 }
 
 const Dialogs = (props) => {
+    let newMessageEl =React.createRef()
+    let addPost = () => {
+        console.log(newMessageEl.current.value)
+    }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                { props.data.dialogs.map(d => <DialogItem id={d.id} name={d.name} />)}
+                {props.data.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)}
             </div>
             <div className={s.massages}>
-                 <Message message='555555555'/>
-                 <Message message='4'/>
-                 <Message message='3'/>
+                <Message message='555555555'/>
+                <Message message='4'/>
+                <Message message='3'/>
+                <div>
+                    <textarea ref={newMessageEl}></textarea>
+                    <button onClick={addPost}>Add post</button>
+                </div>
             </div>
         </div>
     )
