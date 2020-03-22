@@ -47,4 +47,7 @@ let store = {
     },
 }
 
+export const addPostAC = () => ({ type: 'ADD-POST' })
+export const updateNewPostAC = (text) => ({ type: 'UPDATE-NEW-POST', text })
+
 export default store
