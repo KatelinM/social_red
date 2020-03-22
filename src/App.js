@@ -6,7 +6,7 @@ import Profile from './components/Profile/Profile';
 import Dialogs from "./components/Diologs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 
-const App = (props) => {console.log(props)
+const App = (props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -18,8 +18,7 @@ const App = (props) => {console.log(props)
 
                     {/*<Route path="/profile" component={Profile}/>*/}
                     <Route path="/profile" render={() => <Profile data={props.appState.profilePage}
-                                                                  addPost={props.addPost}
-                                                                  updateNewPostText={props.updateNewPostText}/> }/>
+                                                                  dispatch={props.dispatch}/> }/>
 
                 </div>
             </div>

@@ -1,5 +1,5 @@
 let store = {
-    _state: {
+    _state: { //data to component
         profilePage: {
             posts: [
                 {id: 1, message: "Hi, how are you", likesCount: "0"},
@@ -21,23 +21,30 @@ let store = {
     getState() {
         return this._state
     },
+    subscribe(observer) {
+        this._callSubscriber = observer
+    },
     _callSubscriber() {
 
     },
-    addPost() {
-        this._state.profilePage.posts.push(
-            {id: 55, message: this._state.profilePage.newPostText, likesCount: 0}
-        );
-        this._callSubscriber(this._state);
-        this.updateNewPostText('')
+
+    dispatch(action) { //{type: 'ADD-POST'} callback to component
+        switch (action.type) {
+            case 'ADD-POST':
+                this._state.profilePage.posts.push(
+                    {id: 55, message: this._state.profilePage.newPostText, likesCount: 0}
+                );
+                this._callSubscriber(this._state);
+                this._state.profilePage.newPostText = '';
+                break;
+            case 'UPDATE-NEW-POST':
+                this._state.profilePage.newPostText = action.text;
+                this._callSubscriber(this._state)
+                break;
+            default:
+                alert("Нет таких значений");
+        }
     },
-    updateNewPostText(text) {
-        this._state.profilePage.newPostText = text ;
-        this._callSubscriber(this._state)
-    },
-    subscribe(observer){
-        this._callSubscriber = observer
-    }
 }
 
 export default store
