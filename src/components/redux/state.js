@@ -1,3 +1,5 @@
+import profileReducer from "./profileReducer";
+
 let store = {
     _state: { //data to component
         profilePage: {
@@ -29,25 +31,9 @@ let store = {
     },
 
     dispatch(action) { //{type: 'ADD-POST'} callback to component
-        switch (action.type) {
-            case 'ADD-POST':
-                this._state.profilePage.posts.push(
-                    {id: 55, message: this._state.profilePage.newPostText, likesCount: 0}
-                );
-                this._callSubscriber(this._state);
-                this._state.profilePage.newPostText = '';
-                break;
-            case 'UPDATE-NEW-POST':
-                this._state.profilePage.newPostText = action.text;
-                this._callSubscriber(this._state)
-                break;
-            default:
-                alert("Нет таких значений");
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._callSubscriber(this._state)
     },
 }
-
-export const addPostAC = () => ({ type: 'ADD-POST' })
-export const updateNewPostAC = (text) => ({ type: 'UPDATE-NEW-POST', text })
 
 export default store
