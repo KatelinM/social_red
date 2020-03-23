@@ -1,0 +1,8 @@
+img {
+    max-width: 100px;
+}
+
+.content {
+    display: inline-block;
+    margin-left: 20px;
+}
