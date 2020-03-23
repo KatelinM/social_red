@@ -4,10 +4,10 @@ import Post from './Post/Post';
 import {addPostAC, updateNewPostAC} from "../../redux/profileReducer";
 
 const MyPosts = (props) => {
-    let newPostEl = React.createRef()
+    let newPostEl = React.createRef();
     const addPost = () => {
         props.dispatch(addPostAC())
-    }
+    };
 
     const onPostChange = () => {
         let text = newPostEl.current.value;
@@ -29,6 +29,6 @@ const MyPosts = (props) => {
             </div>
         </div>
     )
-}
+};
 
 export default MyPosts;
