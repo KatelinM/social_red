@@ -8,7 +8,6 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 const App = (props) => {
 
-    console.log(props)
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
