@@ -15,11 +15,10 @@ const App = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
 
-                    <Route path="/dialogs" render={() => <Dialogs data={props.appState.dialogReducer}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs/>}/>
 
                     {/*<Route path="/profile" component={Profile}/>*/}
-                    <Route path="/profile" render={() => <Profile data={props.appState.profileReducer}
-                                                                  dispatch={props.dispatch}/> }/>
+                    <Route path="/profile" render={() => <Profile/> }/>
 
                 </div>
             </div>

@@ -24,7 +24,7 @@ const MyPosts = (props) => {
                 <button onClick={ onAddPost }>Add post</button>
             </div>
             <div className={s.posts}>
-                {props.data.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)}
+                {props.data.posts.map((p,i) => <Post key={i} message={p.message} likesCount={p.likesCount}/>)}
             </div>
         </div>
     )
