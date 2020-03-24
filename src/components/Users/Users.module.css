@@ -6,3 +6,7 @@ img {
     display: inline-block;
     margin-left: 20px;
 }
+
+.selected {
+    background: rebeccapurple;
+}

@@ -4,44 +4,13 @@ import * as axios from "axios";
 import nobody from '../../assets/images/nobody.png'
 
 class Users extends Component {
-    userMock = [
-        {
-            id: 1,
-            img: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/03/Rick-and-Morty-Worlds-SM.jpg?q=50&fit=crop&w=960&h=500',
-            name: "Anna",
-            status: "I'm happy",
-            location: {city: 'Minsk', country: 'Bel'},
-            isFollowed: false
-        },
-        {
-            id: 2,
-            img: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/03/Rick-and-Morty-Worlds-SM.jpg?q=50&fit=crop&w=960&h=500',
-            name: "Alex",
-            status: "I'm happy",
-            location: {city: 'Minsk', country: 'Bel'},
-            isFollowed: false
-        },
-        {
-            id: 3,
-            img: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/03/Rick-and-Morty-Worlds-SM.jpg?q=50&fit=crop&w=960&h=500',
-            name: "Taylor",
-            status: "I'm happy",
-            location: {city: 'Minsk', country: 'Bel'},
-            isFollowed: false
-        },
-        {
-            id: 4,
-            img: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/03/Rick-and-Morty-Worlds-SM.jpg?q=50&fit=crop&w=960&h=500',
-            name: "Swift",
-            status: "I'm happy",
-            location: {city: 'Minsk', country: 'Bel'},
-            isFollowed: false
-        },
-    ];
 
     getUsers = () => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users?count=3&pageNumber=3')
-            .then(response => this.props.setUsers(response.data.items))
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
     };
 
     componentDidMount() {
@@ -53,8 +22,34 @@ class Users extends Component {
             this.props.toggleFollow(id)
         };
 
+        let buttonsCount = Math.ceil(this.props.totalUsersCount / this.props.usersPerPage);
+        let puginationsButton = [];
+        for (var i = 1; i <= buttonsCount; i++) {
+            puginationsButton.push(i)
+        }
+
+        let onPaginationClicked = (num) => {
+            this.props.setCurrentPage(num)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${num}`)
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                    this.props.setTotalUsersCount(response.data.totalCount)
+                })
+        };
+
         return (
             <>
+                <div className="">
+                    {
+                        puginationsButton.map(num => {
+                            return <span key={num}
+                                         className={this.props.currentPage === num ? s.selected : null}
+                                         onClick={() => onPaginationClicked(num)}>
+                                {num}
+                            </span>
+                        })
+                    }
+                </div>
                 {
                     this.props.users.map(u => <div key={u.id}>
                             <img src={u.photos.small ? u.photos.small : nobody} alt={u.name}/>
