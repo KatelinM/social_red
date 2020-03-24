@@ -13,4 +13,5 @@
     padding: 15px;
     grid-area: c;
     background-color: cornflowerblue;
+    position: relative;
 }
