@@ -1,26 +1,24 @@
 const initialState = {
-    users: [
-        {id: 1, img: 'https://zoko.com.ua/sites/default/files/styles/s650xauto/public/products/gpp51076.jpg?itok=6bVjj0rO', name: "Anna", status: "I'm happy", location: {city: 'Minsk', country: 'Bel'}, isFollowed: false},
-        {id: 2, img: 'https://zoko.com.ua/sites/default/files/styles/s650xauto/public/products/gpp51076.jpg?itok=6bVjj0rO', name: "Alex", status: "I'm happy", location: {city: 'Minsk', country: 'Bel'}, isFollowed: false},
-        {id: 3, img: 'https://zoko.com.ua/sites/default/files/styles/s650xauto/public/products/gpp51076.jpg?itok=6bVjj0rO', name: "Taylor", status: "I'm happy", location: {city: 'Minsk', country: 'Bel'}, isFollowed: false},
-        {id: 4, img: 'https://zoko.com.ua/sites/default/files/styles/s650xauto/public/products/gpp51076.jpg?itok=6bVjj0rO', name: "Swift", status: "I'm happy", location: {city: 'Minsk', country: 'Bel'}, isFollowed: false},
-    ],
+    users: [],
 };
 
 let usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'TOGGLEFOLLOW':
+        case 'SET_USERS':
             return {
                 ...state,
-                users: state.users.map( u => {
-                    if (u.id !== action.userId) {
-                        return u
-                    } else {
-                        return {
+                users: action.data
+            };
+        case 'TOGGLE_FOLLOW':
+            return {
+                ...state,
+                users: state.users.map(u => {
+                    return u.id !== action.userId ?
+                        u :
+                        {
                             ...u,
                             isFollowed: !u.isFollowed
                         }
-                    }
                 })
             };
         default:
@@ -28,6 +26,7 @@ let usersReducer = (state = initialState, action) => {
     }
 };
 
-export const toggleFollowAC = (userId) => ({type: 'TOGGLEFOLLOW', userId});
+export const toggleFollowAC = (userId) => ({type: 'TOGGLE_FOLLOW', userId});
+export const setUsersAC = (data) => ({type: 'SET_USERS', data});
 
 export default usersReducer
