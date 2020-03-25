@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Users.module.css';
 import nobody from '../../assets/images/nobody.png'
+import {NavLink} from "react-router-dom";
 
 function Users(props) {
     const onToggleFollow = (id) => {
@@ -28,7 +29,9 @@ function Users(props) {
             </div>
             {
                 props.users.map(u => <div key={u.id}>
-                        <img src={u.photos.small ? u.photos.small : nobody} alt={u.name}/>
+                        <NavLink to={'/profile/'+ u.id}>
+                            <img src={u.photos.small ? u.photos.small : nobody} alt={u.name}/>
+                        </NavLink>
                         <div className={s.content}>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
