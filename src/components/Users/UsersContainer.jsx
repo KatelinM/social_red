@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleFollowAC,
-    toggleIsFetchingAC
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleFollow,
+    toggleIsFetching
 } from "../redux/usersReducer";
 import React, {Component} from "react";
 import * as axios from "axios";
@@ -17,7 +17,7 @@ class UsersContainerApi extends Component {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`)
             .then(response => {
                 this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setTotalUsersCount(response.data.totalCount);
                 this.props.toggleIsFetching(false)
             })
     };
@@ -31,7 +31,7 @@ class UsersContainerApi extends Component {
         this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${num}`)
             .then(response => {
-                this.props.toggleIsFetching(false)
+                this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount)
             })
@@ -41,7 +41,6 @@ class UsersContainerApi extends Component {
         return <>
             {this.props.isFetching && <Loader/>}
             <Users {...this.props}
-                   onPaginationClicked={this.onPaginationClicked}
                    onPaginationClicked={this.onPaginationClicked}/>
         </>
     }
@@ -54,15 +53,24 @@ let mapStateToProps = (state) => ({
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
 });
+//
+// let mapDispatchToProps = (dispatch) => ({
+//     toggleFollow: (userId) => dispatch(toggleFollow(userId)),
+//     setUsers: (data) => dispatch(setUsers(data)),
+//     setCurrentPage: (currentPage) => dispatch(setCurrentPage(currentPage)),
+//     setTotalUsersCount: (totalCount) => dispatch(setTotalUsersCount(totalCount)),
+//     toggleIsFetching: (isFetching) => dispatch(toggleIsFetching(isFetching)),
+// });
 
-let mapDispatchToProps = (dispatch) => ({
-    toggleFollow: (userId) => dispatch(toggleFollowAC(userId)),
-    setUsers: (data) => dispatch(setUsersAC(data)),
-    setCurrentPage: (currentPage) => dispatch(setCurrentPageAC(currentPage)),
-    setTotalUsersCount: (totalCount) => dispatch(setTotalUsersCountAC(totalCount)),
-    toggleIsFetching: (isFetching) => dispatch(toggleIsFetchingAC(isFetching)),
-});
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerApi);
+const UsersContainer = connect(
+    mapStateToProps,
+    {
+        toggleFollow,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        toggleIsFetching,
+    }
+)(UsersContainerApi);
 
 export default UsersContainer
