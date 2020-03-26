@@ -19,7 +19,7 @@ const profileReducer = (state = initialState, action) => {
 
 const setAuthUserData = (data) => ({type: 'SET-AUTH-USER-DATA', data});
 
-export const authMe = () => (dispatch) => {
+export const getAuthUserData = () => (dispatch) => {
     return userAPI.authMe()
         .then(response => {
             if (response.data.resultCode === 0) {

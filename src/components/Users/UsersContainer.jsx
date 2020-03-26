@@ -6,6 +6,7 @@ import {
 } from "../redux/usersReducer";
 import React, {Component} from "react";
 import Loader from "../Loader/Loader";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 class UsersContainerApi extends Component {
 
@@ -34,12 +35,12 @@ let mapStateToProps = (state) => ({
     isFetching: state.usersPage.isFetching,
 });
 
-const UsersContainer = connect(
+const UsersContainer = withAuthRedirect(connect(
     mapStateToProps,
     {
         getUsers,
         toggleFollowThunkCreator
     }
-)(UsersContainerApi);
+)(UsersContainerApi));
 
 export default UsersContainer

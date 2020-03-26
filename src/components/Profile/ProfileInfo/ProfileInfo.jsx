@@ -1,4 +1,5 @@
 import React from "react";
+import nobody from "../../../assets/images/nobody.png";
 
 const ProfileInfo = ({profile}) => {
     if (profile === null) {
@@ -8,7 +9,7 @@ const ProfileInfo = ({profile}) => {
         <>
             <div>
                 <img
-                    src={profile.photos.small} alt=""/>
+                    src={profile.photos.small ? profile.photos.small : nobody} alt=""/>
             </div>
             <div>
                 <div>{profile.aboutMe}</div>

@@ -19,10 +19,10 @@ const userAPI = {
         return instance.get(`users?count=${usersPerPage}&page=${currentPage}`).then(result => result.data)
     },
     authMe() {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+        return instance.get(`auth/me`)
     },
     getProfile(selectedId) {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${selectedId}`)
+        return instance.get(`profile/${selectedId}`)
     },
 };
 
