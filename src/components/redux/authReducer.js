@@ -1,3 +1,5 @@
+import userAPI from "../api/api";
+
 const initialState = {
     authUserData: {},
     isAuthorized: false,
@@ -15,6 +17,16 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const setAuthUserData = (data) => ({type: 'SET-AUTH-USER-DATA', data});
+const setAuthUserData = (data) => ({type: 'SET-AUTH-USER-DATA', data});
+
+export const authMe = () => (dispatch) => {
+    return userAPI.authMe()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(response.data.data));
+            }
+        })
+
+};
 
 export default profileReducer

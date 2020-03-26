@@ -47,7 +47,7 @@ let usersReducer = (state = initialState, action) => {
     }
 };
 
-export const toggleFollow = (userId) => ({type: 'TOGGLE_FOLLOW', userId});
+const toggleFollow = (userId) => ({type: 'TOGGLE_FOLLOW', userId});
 const setUsers = (data) => ({type: 'SET_USERS', data});
 const setCurrentPage = (currentPage) => ({type: 'SET_CURRENT_PAGE', currentPage});
 const setTotalUsersCount = (totalCount) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount});
@@ -63,6 +63,24 @@ export const getUsers = (usersPerPage, currentPage) => {
                 dispatch(setTotalUsersCount(response.totalCount));
                 dispatch(toggleIsFetching(false))
             })
+    }
+};
+
+export const toggleFollowThunkCreator = (id, isFollowed) => {
+    return (dispatch) => {
+        if (isFollowed) {
+            userAPI.unFollow(id).then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(toggleFollow(id));
+                }
+            })
+        } else {
+            userAPI.follow(id).then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(toggleFollow(id));
+                }
+            })
+        }
     }
 };
 

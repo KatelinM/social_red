@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {
     getUsers,
-    toggleFollow,
+    toggleFollowThunkCreator
 } from "../redux/usersReducer";
 import React, {Component} from "react";
 import Loader from "../Loader/Loader";
@@ -37,8 +37,8 @@ let mapStateToProps = (state) => ({
 const UsersContainer = connect(
     mapStateToProps,
     {
-        toggleFollow,
         getUsers,
+        toggleFollowThunkCreator
     }
 )(UsersContainerApi);
 

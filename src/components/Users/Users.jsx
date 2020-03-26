@@ -2,24 +2,10 @@ import React from 'react';
 import s from './Users.module.css';
 import nobody from '../../assets/images/nobody.png'
 import {NavLink} from "react-router-dom";
-import userAPI from "../api/api";
 
 function Users(props) {
     const onToggleFollow = (id, isFollowed) => {
-        props.toggleFollow(id);
-        if (isFollowed) {
-            userAPI.unFollow(id).then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.toggleFollow(id);
-                    }
-                })
-        } else {
-            userAPI.follow(id).then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.toggleFollow(id);
-                    }
-                })
-        }
+        props.toggleFollowThunkCreator(id, isFollowed)
     };
 
     let buttonsCount = Math.ceil(props.totalUsersCount / props.usersPerPage);
