@@ -1,3 +1,5 @@
+import userAPI from "../api/api";
+
 const initialState = {
     users: [],
     usersPerPage: 52,
@@ -46,9 +48,22 @@ let usersReducer = (state = initialState, action) => {
 };
 
 export const toggleFollow = (userId) => ({type: 'TOGGLE_FOLLOW', userId});
-export const setUsers = (data) => ({type: 'SET_USERS', data});
-export const setCurrentPage = (currentPage) => ({type: 'SET_CURRENT_PAGE', currentPage});
-export const setTotalUsersCount = (totalCount) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount});
-export const toggleIsFetching = (isFetching) => ({type: 'TOGGLE_IS_FETCHING', isFetching});
+const setUsers = (data) => ({type: 'SET_USERS', data});
+const setCurrentPage = (currentPage) => ({type: 'SET_CURRENT_PAGE', currentPage});
+const setTotalUsersCount = (totalCount) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount});
+const toggleIsFetching = (isFetching) => ({type: 'TOGGLE_IS_FETCHING', isFetching});
+
+export const getUsers = (usersPerPage, currentPage) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
+        userAPI.getUsers(usersPerPage, currentPage)
+            .then(response => {
+                dispatch(setUsers(response.items));
+                dispatch(setTotalUsersCount(response.totalCount));
+                dispatch(toggleIsFetching(false))
+            })
+    }
+};
 
 export default usersReducer

@@ -17,7 +17,13 @@ const userAPI = {
     },
     getUsers(usersPerPage, currentPage) {
         return instance.get(`users?count=${usersPerPage}&page=${currentPage}`).then(result => result.data)
-    }
+    },
+    authMe() {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+    },
+    getProfile(selectedId) {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${selectedId}`)
+    },
 };
 
 export default userAPI

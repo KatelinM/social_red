@@ -9,13 +9,13 @@ function Users(props) {
         props.toggleFollow(id);
         if (isFollowed) {
             userAPI.unFollow(id).then(response => {
-                    if (response.data.resultCode == 0) {
+                    if (response.data.resultCode === 0) {
                         props.toggleFollow(id);
                     }
                 })
         } else {
             userAPI.follow(id).then(response => {
-                    if (response.data.resultCode == 0) {
+                    if (response.data.resultCode === 0) {
                         props.toggleFollow(id);
                     }
                 })
