@@ -2,37 +2,25 @@ import React from 'react';
 import s from './Users.module.css';
 import nobody from '../../assets/images/nobody.png'
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
+import userAPI from "../api/api";
 
 function Users(props) {
     const onToggleFollow = (id, isFollowed) => {
         props.toggleFollow(id);
         if (isFollowed) {
-            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY": "6c3b978f-8175-42d7-a35a-1aa93dfbec15",
-                }
-            })
-                .then(response => {
+            userAPI.unFollow(id).then(response => {
                     if (response.data.resultCode == 0) {
                         props.toggleFollow(id);
                     }
                 })
         } else {
-            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, null, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY": "6c3b978f-8175-42d7-a35a-1aa93dfbec15",
-                }
-            })
-                .then(response => {
+            userAPI.follow(id).then(response => {
                     if (response.data.resultCode == 0) {
                         props.toggleFollow(id);
                     }
                 })
         }
-    }
+    };
 
     let buttonsCount = Math.ceil(props.totalUsersCount / props.usersPerPage);
     let puginationsButton = [];
