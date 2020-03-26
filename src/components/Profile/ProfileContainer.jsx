@@ -9,7 +9,7 @@ import {withRouter} from "react-router-dom";
 class ProfileContainer extends Component {
 
     componentDidMount() {
-        let selectedId = this.props.match.params.userId || 2;
+        let selectedId = this.props.match.params.userId || 5746;
 
         this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${selectedId}`)
@@ -20,7 +20,6 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        console.log(this.props)
         return <Profile {...this.props} />
     }
 }
