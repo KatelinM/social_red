@@ -14,7 +14,12 @@ import Loader from "../Loader/Loader";
 class UsersContainerApi extends Component {
     getUsers = () => {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`, {
+            withCredentials: true,
+            headers: {
+                'API-KEY': '6c3b978f-8175-42d7-a35a-1aa93dfbec15',
+            }
+        })
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount);
@@ -29,7 +34,12 @@ class UsersContainerApi extends Component {
     onPaginationClicked = (num) => {
         this.props.setCurrentPage(num);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${num}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${num}`, {
+            withCredentials: true,
+            headers: {
+                'API-KEY': '6c3b978f-8175-42d7-a35a-1aa93dfbec15',
+            }
+        })
             .then(response => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
