@@ -8,7 +8,7 @@ import {compose} from "redux";
 class ProfileContainer extends Component {
 
     componentDidMount() {
-        let selectedId = this.props.match.params.userId || 5746;
+        let selectedId = this.props.match.params.userId || 5923;
         this.props.getProfile(selectedId);
         this.props.getProfileStatus(selectedId);
     }

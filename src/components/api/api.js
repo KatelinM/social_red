@@ -29,7 +29,7 @@ const userAPI = {
             .then(result => result.data)
     },
     updateProfileStatus(status) {
-        return instance.get(`/profile/status/`, {status})
+        return instance.post(`/profile/status/`, {status})
     },
 };
 
