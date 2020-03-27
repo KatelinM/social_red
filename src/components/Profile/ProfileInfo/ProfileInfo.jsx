@@ -1,10 +1,13 @@
 import React from "react";
 import nobody from "../../../assets/images/nobody.png";
+import ProfileStatus from "./ProfileStatus";
+import {useState} from "react/cjs/react.production.min";
 
 const ProfileInfo = ({profile}) => {
     if (profile === null) {
         return false
     }
+
     return (
         <>
             <div>
@@ -12,10 +15,10 @@ const ProfileInfo = ({profile}) => {
                     src={profile.photos.small ? profile.photos.small : nobody} alt=""/>
             </div>
             <div>
-                <div>{profile.aboutMe}</div>
+                <h4> {profile.fullName}</h4>
+                <ProfileStatus status={profile.aboutMe}/>
                 <div>lookingForAJob {profile.lookingForAJob}</div>
                 <div>instagram {profile.instagram}</div>
-                <div>fullName {profile.fullName}</div>
             </div>
         </>
     )
