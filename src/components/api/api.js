@@ -24,6 +24,13 @@ const userAPI = {
     getProfile(selectedId) {
         return instance.get(`profile/${selectedId}`)
     },
+    getProfileStatus(selectedId) {
+        return instance.get(`/profile/status/${selectedId}`)
+            .then(result => result.data)
+    },
+    updateProfileStatus(status) {
+        return instance.get(`/profile/status/`, {status})
+    },
 };
 
 export default userAPI

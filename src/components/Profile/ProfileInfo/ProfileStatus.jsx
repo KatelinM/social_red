@@ -8,7 +8,6 @@ class ProfileStatus extends Component {
     };
 
     render() {
-
         return (
             <>
                 <div>
