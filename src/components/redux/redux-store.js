@@ -15,11 +15,11 @@ let reducers = combineReducers({
 });
 
 // let store = createStore(reducers, applyMiddleware(thunk));
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
 const store = createStore(
-  reducers,
-  composeEnhancer(applyMiddleware(thunk)),
+    reducers,
+    composeEnhancer(applyMiddleware(thunk)),
 );
 
 export default store

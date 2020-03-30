@@ -1,4 +1,5 @@
 import userAPI from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const initialState = {
     authUserData: {},
@@ -27,6 +28,22 @@ export const getAuthUserData = () => (dispatch) => {
             }
         })
 
+};
+
+export const logIn = (email, password, rememberMe) => (dispatch) => {
+    return userAPI.logIn(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(response.data.data));
+            } else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+                dispatch(stopSubmit('login', {_error: message}))
+            }
+        })
+};
+
+export const logOut = () => (dispatch) => {
+    return userAPI.logOut()
 };
 
 export default profileReducer

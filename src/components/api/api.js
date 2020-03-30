@@ -29,7 +29,13 @@ const userAPI = {
             .then(result => result.data)
     },
     updateProfileStatus(status) {
-        return instance.post(`/profile/status/`, {status})
+        //return instance.post(`/profile/status/`, {status})
+    },
+    logIn(email, password, rememberMe) {
+        return instance.post(`/auth/login`, {email, password, rememberMe})
+    },
+    logOut() {
+        return instance.delete(`/auth/login`)
     },
 };
 
