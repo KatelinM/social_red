@@ -8,6 +8,13 @@ import React, {Component} from "react";
 import Loader from "../Loader/Loader";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getIsFetching,
+    getTotalUsersCount,
+    getUsersPerPage,
+    getUsersSelector
+} from "../redux/user-selector";
 
 class UsersContainerApi extends Component {
 
@@ -27,13 +34,22 @@ class UsersContainerApi extends Component {
         </>
     }
 }
-
+/*
 let mapStateToProps = (state) => ({
     users: state.usersPage.users,
     usersPerPage: state.usersPage.usersPerPage,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+});
+*/
+
+let mapStateToProps = (state) => ({
+    users: getUsersSelector(state),
+    usersPerPage: getUsersPerPage(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
 });
 
 export default compose(
