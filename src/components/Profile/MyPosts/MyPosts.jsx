@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import {Field, reduxForm} from "redux-form";
@@ -29,22 +29,28 @@ PostForm = reduxForm({
     form: 'post'
 })(PostForm);
 
-const MyPosts = (props) => {
-    let submit = (data) => {
-        props.addPost(data.post)
-    };
+class MyPosts extends Component {
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps !== this.props ||  nextState !== this.state;
+    }
 
-    return (
-        <div>
-            My posts
+    render() {
+        let submit = (data) => {
+            this.props.addPost(data.post)
+        };
+
+        return (
             <div>
-                <PostForm onSubmit={submit}/>
+                My posts
+                <div>
+                    <PostForm onSubmit={submit}/>
+                </div>
+                <div className={s.posts}>
+                    {this.props.data.posts.map((p, i) => <Post key={i} message={p.message} likesCount={p.likesCount}/>)}
+                </div>
             </div>
-            <div className={s.posts}>
-                {props.data.posts.map((p, i) => <Post key={i} message={p.message} likesCount={p.likesCount}/>)}
-            </div>
-        </div>
-    )
-};
+        )
+    }
+}
 
 export default MyPosts;
