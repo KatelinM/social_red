@@ -15,8 +15,9 @@ const userAPI = {
     follow(id) {
         return instance.post(`follow/${id}`)
     },
-    getUsers(usersPerPage, currentPage) {
-        return instance.get(`users?count=${usersPerPage}&page=${currentPage}`).then(result => result.data)
+    async getUsers(usersPerPage, currentPage) {
+        let result = await instance.get(`users?count=${usersPerPage}&page=${currentPage}`)
+        return result.data
     },
     authMe() {
         return instance.get(`auth/me`)
@@ -24,9 +25,9 @@ const userAPI = {
     getProfile(selectedId) {
         return instance.get(`profile/${selectedId}`)
     },
-    getProfileStatus(selectedId) {
-        return instance.get(`/profile/status/${selectedId}`)
-            .then(result => result.data)
+    async getProfileStatus(selectedId) {
+        let response = await instance.get(`/profile/status/${selectedId}`)
+        return response.data
     },
     updateProfileStatus(status) {
         //return instance.post(`/profile/status/`, {status})

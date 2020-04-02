@@ -54,28 +54,28 @@ const setTotalUsersCount = (totalCount) => ({type: 'SET_TOTAL_USERS_COUNT', tota
 const toggleIsFetching = (isFetching) => ({type: 'TOGGLE_IS_FETCHING', isFetching});
 
 export const getUsers = (usersPerPage, currentPage) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(currentPage));
-        userAPI.getUsers(usersPerPage, currentPage)
-            .then(response => {
-                dispatch(setUsers(response.items));
-                dispatch(setTotalUsersCount(response.totalCount));
-                dispatch(toggleIsFetching(false))
-            })
+
+        let response = await userAPI.getUsers(usersPerPage, currentPage);
+
+        dispatch(setUsers(response.items));
+        dispatch(setTotalUsersCount(response.totalCount));
+        dispatch(toggleIsFetching(false))
     }
 };
 
 export const toggleFollowThunkCreator = (id, isFollowed) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         if (isFollowed) {
-            userAPI.unFollow(id).then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(toggleFollow(id));
-                }
-            })
+            let response = await userAPI.unFollow(id);
+            if (response.data.resultCode === 0) {
+                dispatch(toggleFollow(id));
+            }
         } else {
-            userAPI.follow(id).then(response => {
+            userAPI.follow(id)
+                .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(toggleFollow(id));
                 }

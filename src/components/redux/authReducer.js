@@ -20,26 +20,23 @@ const profileReducer = (state = initialState, action) => {
 
 const setAuthUserData = (data) => ({type: 'SET-AUTH-USER-DATA', data});
 
-export const getAuthUserData = () => (dispatch) => {
-    return userAPI.authMe()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(response.data.data));
-            }
-        })
+export const getAuthUserData = () => async (dispatch) => {
+    let response = await userAPI.authMe();
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(response.data.data));
+    }
+
 
 };
 
-export const logIn = (email, password, rememberMe) => (dispatch) => {
-    return userAPI.logIn(email, password, rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(response.data.data));
-            } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-                dispatch(stopSubmit('login', {_error: message}))
-            }
-        })
+export const logIn = (email, password, rememberMe) => async (dispatch) => {
+    let response = await userAPI.logIn(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(response.data.data));
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+        dispatch(stopSubmit('login', {_error: message}))
+    }
 };
 
 export const logOut = () => (dispatch) => {
