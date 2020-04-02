@@ -17,7 +17,7 @@ function Users(props) {
                        currentPage={props.currentPage}
                        onPaginationClicked={props.onPaginationClicked}/>
             {
-                props.users.map(user => <User user={user} onToggleFollow={onToggleFollow}/>)
+                props.users.map(user => <User key={user.id} user={user} onToggleFollow={onToggleFollow}/>)
             }
         </>
     )

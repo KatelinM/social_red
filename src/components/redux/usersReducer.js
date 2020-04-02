@@ -74,12 +74,12 @@ export const toggleFollowThunkCreator = (id, isFollowed) => {
                 dispatch(toggleFollow(id));
             }
         } else {
-            userAPI.follow(id)
-                .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(toggleFollow(id));
-                }
-            })
+            let response = await userAPI.follow(id);
+
+            if (response.data.resultCode === 0) {
+                dispatch(toggleFollow(id));
+            }
+
         }
     }
 };

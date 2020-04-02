@@ -4,11 +4,10 @@ import nobody from '../../assets/images/nobody.png'
 import {NavLink} from "react-router-dom";
 
 function User({user}, onToggleFollow) {
-
     return (
         <>
             {
-                <div key={user.id}>
+                <div>
                     <NavLink to={'/profile/' + user.id}>
                         <img src={user.photos.small ? user.photos.small : nobody} alt={user.name}/>
                     </NavLink>
