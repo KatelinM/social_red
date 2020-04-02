@@ -22,6 +22,12 @@ const profileReducer = (state = initialState, action) => {
                 ],
                 newPostText: ''
             };
+        case 'DELETE-POST':
+            return {
+                ...state,
+                posts: state.posts.filter(post =>post.id !== action.id),
+                newPostText: ''
+            };
         case 'SET-PROFILE':
             return {
                 ...state,
@@ -38,6 +44,7 @@ const profileReducer = (state = initialState, action) => {
 };
 
 export const addPost = (post) => ({type: 'ADD-POST', post});
+export const deletePost = (id) => ({type: 'DELETE-POST', id});
 export const setProfile = (profile) => ({type: 'SET-PROFILE', profile});
 export const setProfileStatus = (status) => ({type: 'SET-PROFILE-STATUS', status});
 
