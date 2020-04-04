@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
+import cn from 'classnames'
 
 const Navbar = () => {
     return (
@@ -8,7 +9,7 @@ const Navbar = () => {
             <div className={s.item}>
                 <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
             </div>
-            <div className={`${s.item} ${s.active}`}>
+            <div className={cn(s.item, s.active)}>
                 <NavLink to="/dialogs" activeClassName={s.activeLink}>Messages</NavLink>
             </div>
             <div className={`${s.item} ${s.active}`}>

@@ -19,12 +19,14 @@ const App = () => {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
+                    <Route exact path="/" render={() => <ProfileContainer/>}/>
+
                     <Route path="/dialogs" render={() => <Dialogs/>}/>
 
                     {/*<Route path="/profile" component={Profile}/>*/}
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer/> }/>
-                    <Route path="/users" render={() => withLazy(UsersContainer) }/>
-                    <Route path="/login" render={() => withLazy(Login) }/>
+                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                    <Route path="/users" render={() => withLazy(UsersContainer)}/>
+                    <Route path="/login" render={() => withLazy(Login)}/>
 
                 </div>
             </div>
