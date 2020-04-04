@@ -9,6 +9,12 @@ const ProfileInfo = (props) => {
 
     return (
         <>
+            {props.isOwner &&
+            <>
+                <span>My profile</span>
+                <input type="file"/>
+            </>
+            }
             <div>
                 <img
                     src={props.profile.photos.small ? props.profile.photos.small : nobody} alt=""/>

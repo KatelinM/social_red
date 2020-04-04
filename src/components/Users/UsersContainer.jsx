@@ -34,15 +34,6 @@ class UsersContainerApi extends Component {
         </>
     }
 }
-/*
-let mapStateToProps = (state) => ({
-    users: state.usersPage.users,
-    usersPerPage: state.usersPage.usersPerPage,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-});
-*/
 
 let mapStateToProps = (state) => ({
     users: getUsersSelector(state),

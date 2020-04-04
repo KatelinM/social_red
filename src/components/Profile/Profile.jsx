@@ -6,6 +6,7 @@ const Profile = (props) => {
   return (
     <>
       <ProfileInfo
+          isOwner={props.isOwner}
           profile={props.profile}
           status={props.status}
           updateProfileStatus={props.updateProfileStatus}/>

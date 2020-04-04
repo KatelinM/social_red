@@ -8,20 +8,33 @@ import withAuthRedirect from "../hoc/withAuthRedirect";
 
 class ProfileContainer extends Component {
 
-    componentDidMount() {
-        let selectedId = this.props.match.params.userId || this.props.authorizedUserId;
+    refreshProfile() {
+        let selectedId = this.props.match.params.userId ||
+            this.props.authorizedUserId ||
+            this.props.history.push('/login');
         this.props.getProfile(selectedId);
         this.props.getProfileStatus(selectedId);
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
-        return <Profile {...this.props} />
+        return <Profile isOwner={!this.props.match.params.userId}
+                        {...this.props} />
     }
 }
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    authorizedUserId: state.profilePage.profile && state.profilePage.profile.userId,
+    authorizedUserId: state.auth.authUserData.id,
     status: state.profilePage.status,
 });
 
